@@ -16,7 +16,7 @@
 .post {
   display: flex;
   padding: 15px;
-  border: 2px solid teal;
+  border: 2px solid #a02eaf;
   margin-top: 15px;
   justify-content: space-between;
   border-radius: 10px;

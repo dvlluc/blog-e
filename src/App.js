@@ -37,15 +37,11 @@ const App = () => {
       <PostForm create={createPost} />
       <hr style={{ margin: "15px 0" }} />
       <PostFilter filter={filter} setFilter={setFilter} />
-      {sortedAndSearchedPosts.length ? (
-        <PostList
-          remove={removePost}
-          posts={sortedAndSearchedPosts}
-          title="Список постов"
-        />
-      ) : (
-        <h1 style={{ textAlign: "center" }}> Постов нет</h1>
-      )}
+      <PostList
+        remove={removePost}
+        posts={sortedAndSearchedPosts}
+        title="Список постов"
+      />
     </div>
   );
 };
