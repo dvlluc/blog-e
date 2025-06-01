@@ -3,7 +3,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const PostList = ({ posts, title, remove }) => {
   if (!posts.length) {
-    return <h1 style={{ textAlign: "center" }}> Постов нет</h1>;
+    return <h1 style={{ textAlign: "center" }}>Постов нет</h1>;
   }
 
   return (
@@ -17,7 +17,9 @@ const PostList = ({ posts, title, remove }) => {
             classNames="post"
             nodeRef={post.nodeRef}
           >
-            <PostItem number={index + 1} post={post} remove={remove} />
+            <div ref={post.nodeRef}>
+              <PostItem number={index + 1} post={post} remove={remove} />
+            </div>
           </CSSTransition>
         ))}
       </TransitionGroup>
