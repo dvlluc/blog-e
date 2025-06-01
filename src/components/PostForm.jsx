@@ -1,4 +1,4 @@
-import React, { createRef, useState } from "react";
+import { createRef, useState } from "react";
 import MyInput from "./UI/input/MyInput";
 import MyButton from "./UI/button/MyButton";
 

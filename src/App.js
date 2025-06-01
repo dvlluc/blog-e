@@ -1,4 +1,4 @@
-import { createRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
 import PostFilter from "./components/PostFilter";
@@ -7,6 +7,7 @@ import MyButton from "./components/UI/button/MyButton";
 import { usePosts } from "./hooks/usePosts";
 import "./styles/App.css";
 import PostService from "./api/postService";
+import Loader from "./components/UI/Loader/Loader";
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -15,11 +16,13 @@ const App = () => {
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
   const [isPostsLoading, setIsPostsLoading] = useState(false);
 
-  async function fetchPosts() {
+  function fetchPosts() {
     setIsPostsLoading(true);
-    const posts = await PostService.getAll();
-    setPosts(posts);
-    setIsPostsLoading(false);
+    setTimeout(async () => {
+      const posts = await PostService.getAll();
+      setPosts(posts);
+      setIsPostsLoading(false);
+    }, 1000);
   }
 
   useEffect(() => {
@@ -45,8 +48,9 @@ const App = () => {
       </MyModal>
       <PostFilter filter={filter} setFilter={setFilter} />
       {isPostsLoading ? (
-        <h1 style={{ textAlign: "center" }}>Загрузка...</h1>
+        <Loader size="large" />
       ) : (
+        // <h1 style={{ textAlign: "center" }}>Загрузка...</h1>
         <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Посты" />
       )}
     </div>
