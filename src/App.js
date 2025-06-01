@@ -1,19 +1,30 @@
-import { useState } from "react";
+import { createRef, useEffect, useState } from "react";
 import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
 import PostFilter from "./components/PostFilter";
 import MyModal from "./components/UI/MyModal/MyModal";
 import MyButton from "./components/UI/button/MyButton";
-import { mockPosts } from "./mock";
 import { usePosts } from "./hooks/usePosts";
 import "./styles/App.css";
+import PostService from "./api/postService";
 
 const App = () => {
-  const [posts, setPosts] = useState([...mockPosts]);
+  const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState({ sort: "", query: "" });
   const [modal, setModal] = useState(false);
-
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
+  const [isPostsLoading, setIsPostsLoading] = useState(false);
+
+  async function fetchPosts() {
+    setIsPostsLoading(true);
+    const posts = await PostService.getAll();
+    setPosts(posts);
+    setIsPostsLoading(false);
+  }
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
@@ -33,11 +44,11 @@ const App = () => {
         <PostForm create={createPost} />
       </MyModal>
       <PostFilter filter={filter} setFilter={setFilter} />
-      <PostList
-        remove={removePost}
-        posts={sortedAndSearchedPosts}
-        title="Список постов"
-      />
+      {isPostsLoading ? (
+        <h1 style={{ textAlign: "center" }}>Загрузка...</h1>
+      ) : (
+        <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Посты" />
+      )}
     </div>
   );
 };
