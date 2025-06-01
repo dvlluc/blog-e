@@ -50,7 +50,6 @@ const App = () => {
       {isPostsLoading ? (
         <Loader size="large" />
       ) : (
-        // <h1 style={{ textAlign: "center" }}>Загрузка...</h1>
         <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Посты" />
       )}
     </div>
