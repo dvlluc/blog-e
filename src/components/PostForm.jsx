@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { createRef, useState } from "react";
 import MyInput from "./UI/input/MyInput";
 import MyButton from "./UI/button/MyButton";
 
@@ -7,7 +7,7 @@ const PostForm = ({ create, remove }) => {
 
   const addNewPost = (e) => {
     e.preventDefault();
-    const newPost = { ...post, id: Date.now() };
+    const newPost = { ...post, id: Date.now(), nodeRef: createRef(null) };
     create(newPost);
     setPost({ title: "", body: "" });
   };
