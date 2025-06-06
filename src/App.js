@@ -1,4 +1,4 @@
-import { createRef, useEffect, useMemo, useState } from "react";
+import { createRef, useEffect, useState } from "react";
 import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
 import PostFilter from "./components/PostFilter";
@@ -9,7 +9,8 @@ import "./styles/App.css";
 import PostService from "./api/postService";
 import Loader from "./components/UI/Loader/Loader";
 import { useFetching } from "./hooks/useFetching";
-import { getPageCount, getPagesArray } from "./utils/pages";
+import { getPageCount } from "./utils/pages";
+import Pagination from "./components/UI/pagination/Pagination";
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -27,10 +28,6 @@ const App = () => {
     const totalCount = headers[`x-total-count`];
     setTotalPages(getPageCount(totalCount, limit));
   });
-
-  const pagesArray = useMemo(() => {
-    return getPagesArray(totalPages);
-  }, [totalPages]);
 
   useEffect(() => {
     fetchPosts(limit, page);
@@ -65,18 +62,7 @@ const App = () => {
       ) : (
         <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Посты" />
       )}
-      <div className="page__wrapper">
-        {!!totalPages &&
-          pagesArray.map((p) => (
-            <span
-              onClick={() => changePage(p)}
-              className={p === page ? "page page__active" : "page"}
-              key={p}
-            >
-              {p}
-            </span>
-          ))}
-      </div>
+      <Pagination totalPages={totalPages} page={page} changePage={changePage} />
     </div>
   );
 };
