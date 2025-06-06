@@ -36,3 +36,23 @@
   opacity: 0;
   transition: opacity 300ms ease-in;
 }
+
+.page__wrapper {
+  display: flex;
+  margin-top: 20px;
+  text-align: center;
+  gap: 5px;
+}
+
+.page{
+  border: 1px solid teal;
+  padding: 5px 15px;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.page__active{
+  border: 1px solid blueviolet;
+}

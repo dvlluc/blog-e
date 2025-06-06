@@ -9,7 +9,7 @@ import "./styles/App.css";
 import PostService from "./api/postService";
 import Loader from "./components/UI/Loader/Loader";
 import { useFetching } from "./hooks/useFetching";
-import { getPageCount } from "./utils/pages";
+import { getPageCount, getPagesArray } from "./utils/pages";
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -29,13 +29,12 @@ const App = () => {
   });
 
   const pagesArray = useMemo(() => {
-    return Array.from({ length: totalPages }, (_, i) => i + 1);
+    return getPagesArray(totalPages);
   }, [totalPages]);
 
-  console.log("pagesArray: ", pagesArray);
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [page]);
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
@@ -44,6 +43,10 @@ const App = () => {
 
   const removePost = (post) => {
     setPosts(posts.filter((el) => el.id !== post.id));
+  };
+
+  const changePage = (page) => {
+    setPage(page);
   };
 
   return (
@@ -61,6 +64,18 @@ const App = () => {
       ) : (
         <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Посты" />
       )}
+      <div className="page__wrapper">
+        {!!totalPages &&
+          pagesArray.map((p) => (
+            <span
+              onClick={() => changePage(p)}
+              className={p === page ? "page page__active" : "page"}
+              key={p}
+            >
+              {p}
+            </span>
+          ))}
+      </div>
     </div>
   );
 };

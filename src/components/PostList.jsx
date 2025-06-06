@@ -13,7 +13,7 @@ const PostList = ({ posts, title, remove }) => {
         {posts.map((post, index) => (
           <CSSTransition key={post.id} timeout={300} classNames="post" nodeRef={post.nodeRef}>
             <div ref={post.nodeRef}>
-              <PostItem number={index + 1} post={post} remove={remove} />
+              <PostItem post={post} remove={remove} />
             </div>
           </CSSTransition>
         ))}
