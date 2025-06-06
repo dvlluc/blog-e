@@ -20,7 +20,7 @@ const App = () => {
   const [modal, setModal] = useState(false);
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
-  const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
+  const [fetchPosts, isPostsLoading, postError] = useFetching(async (limit, page) => {
     const response = await PostService.getAll(limit, page);
     const { data, headers } = response;
     setPosts(data.map((e) => ({ ...e, nodeRef: createRef(null) })));
@@ -33,8 +33,8 @@ const App = () => {
   }, [totalPages]);
 
   useEffect(() => {
-    fetchPosts();
-  }, [page]);
+    fetchPosts(limit, page);
+  }, []);
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
@@ -47,6 +47,7 @@ const App = () => {
 
   const changePage = (page) => {
     setPage(page);
+    fetchPosts(limit, page);
   };
 
   return (
