@@ -1,17 +1,40 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useRoutes } from "react-router-dom";
 import About from "../pages/About";
 import Posts from "../pages/Posts";
+// import PostIdPage from "../pages/Posts/PostIdPage";
 import Error from "../pages/Error";
+import PostIdPage from "../pages/PostIdPage";
 
 const AppRouter = () => {
-  return (
-    <Routes>
-      <Route path="/posts" element={<Posts />} />
-      <Route path="/about" element={<About />} />
-      <Route path="*" element={<Error />} />
-      {/* <Route path="*" element={<Navigate to="/posts" replace />} /> */}
-    </Routes>
-  );
+  // return (
+  //   <Routes>
+  //     <Route path="/posts" element={<Posts />} />
+  //     <Route path="/posts/:id" element={<PostIdPage />} />
+  //     <Route path="/about" element={<About />} />
+  //     <Route path="*" element={<Error />} />
+  //     {/* <Route path="*" element={<Navigate to="/posts" replace />} /> */}
+  //   </Routes>
+  // );
+
+  return useRoutes([
+    {
+      path: "posts",
+      element: <Posts />,
+    },
+    {
+      path: "posts:id",
+      element: <PostIdPage />,
+    },
+    {
+      path: "about",
+      element: <About />,
+    },
+    {
+      path: "*",
+      element: <Error />,
+      // element: <Navigate to="/posts" replace />,
+    },
+  ]);
 };
 
 export default AppRouter;
