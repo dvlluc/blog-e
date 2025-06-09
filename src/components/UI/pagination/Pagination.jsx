@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { getPagesArray } from "../../../utils/pages";
+import classes from "./Pagination.module.css";
 
 const Pagination = ({ totalPages, page, changePage }) => {
   const pagesArray = useMemo(() => {
@@ -7,12 +8,12 @@ const Pagination = ({ totalPages, page, changePage }) => {
   }, [totalPages]);
 
   return (
-    <div className="page__wrapper">
+    <div className={classes.page__wrapper}>
       {!!totalPages &&
         pagesArray.map((p) => (
           <span
             onClick={() => changePage(p)}
-            className={p === page ? "page page__active" : "page"}
+            className={p === page ? `${classes.page} ${classes.page__active}` : classes.page}
             key={p}
           >
             {p}
