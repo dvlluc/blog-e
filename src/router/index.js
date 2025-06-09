@@ -3,10 +3,22 @@ import Posts from "../pages/Posts";
 import PostIdPage from "../pages/PostIdPage";
 import About from "../pages/About";
 import Error from "../pages/Error";
+import Login from "../pages/Login";
 
-export const routes = [
+const commonRoutes = [
+  {
+    path: "*",
+    element: <Error />,
+  },
+];
+
+export const privateRoutes = [
   {
     path: "/",
+    element: <Navigate to="/posts" replace />,
+  },
+  {
+    path: "/login",
     element: <Navigate to="/posts" replace />,
   },
   {
@@ -21,8 +33,16 @@ export const routes = [
     path: "/about",
     element: <About />,
   },
+  ...commonRoutes,
+];
+
+export const publicRoutes = [
+  {
+    path: "/login",
+    element: <Login />,
+  },
   {
     path: "*",
-    element: <Error />,
+    element: <Navigate to="/login" replace />,
   },
 ];

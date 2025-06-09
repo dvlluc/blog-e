@@ -1,13 +1,22 @@
 import { Link } from "react-router-dom";
 import classes from "./Navbar.module.css";
+import MyButton from "../button/MyButton";
+import { useContext } from "react";
+import { AuthContext } from "../../../context";
 
 const Navbar = () => {
+  const { isAuth, setIsAuth } = useContext(AuthContext);
   return (
     <div className={classes.navbar}>
-      <div className={classes.navbar__links}>
-        <Link to="/posts">Posts</Link>
-        <Link to="/about">About</Link>
-      </div>
+      {isAuth && (
+        <div className={classes.navbar__content}>
+          <MyButton onClick={() => setIsAuth(false)}>Выйти</MyButton>
+          <div className={classes.navbar__links}>
+            <Link to="/posts">Posts</Link>
+            <Link to="/about">About</Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
