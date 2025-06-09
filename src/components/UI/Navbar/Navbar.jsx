@@ -5,12 +5,12 @@ import { useContext } from "react";
 import { AuthContext } from "../../../context";
 
 const Navbar = () => {
-  const { isAuth, setIsAuth } = useContext(AuthContext);
+  const { isAuth, logOut } = useContext(AuthContext);
   return (
     <div className={classes.navbar}>
       {isAuth && (
         <div className={classes.navbar__content}>
-          <MyButton onClick={() => setIsAuth(false)}>Выйти</MyButton>
+          <MyButton onClick={() => logOut()}>Выйти</MyButton>
           <div className={classes.navbar__links}>
             <Link to="/posts">Posts</Link>
             <Link to="/about">About</Link>

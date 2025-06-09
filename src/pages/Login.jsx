@@ -4,11 +4,11 @@ import MyInput from "../components/UI/input/MyInput";
 import { AuthContext } from "../context";
 
 const Login = () => {
-  const { setIsAuth } = useContext(AuthContext);
+  const { logIn } = useContext(AuthContext);
 
   const login = (e) => {
     e.preventDefault();
-    setIsAuth(true);
+    logIn();
   };
 
   return (
