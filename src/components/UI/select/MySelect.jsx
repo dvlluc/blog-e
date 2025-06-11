@@ -2,11 +2,7 @@ import classes from "./MySelect.module.css";
 
 const MySelect = ({ options, defaultValue, value, onChange }) => {
   return (
-    <select
-      value={value}
-      className={classes.mySelect}
-      onChange={(e) => onChange(e.target.value)}
-    >
+    <select value={value} className={classes.mySelect} onChange={(e) => onChange(e.target.value)}>
       <option disabled value="">
         {defaultValue}
       </option>

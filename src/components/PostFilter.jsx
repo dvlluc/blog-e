@@ -1,6 +1,6 @@
 import MySelect from "./UI/select/MySelect";
 import MyInput from "./UI/input/MyInput";
-import { sortPostParams } from "../constants";
+import { SORT_POST_PARAMS } from "../constants";
 
 const PostFilter = ({ filter, setFilter }) => {
   const { sort, query } = filter;
@@ -17,7 +17,7 @@ const PostFilter = ({ filter, setFilter }) => {
           value={sort}
           onChange={(sort) => setFilter({ ...filter, sort })}
           defaultValue="Сортировка по: "
-          options={sortPostParams}
+          options={SORT_POST_PARAMS}
         />
       </div>
     </div>

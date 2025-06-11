@@ -12,6 +12,8 @@ import { useFetching } from "../hooks/useFetching";
 import { getPageCount } from "../utils/pages";
 import Pagination from "../components/UI/pagination/Pagination";
 import { useObserver } from "../hooks/useObserver";
+import MySelect from "../components/UI/select/MySelect";
+import { ELEMENTS_PER_PAGE } from "../constants";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -59,6 +61,12 @@ const Posts = () => {
         <PostForm create={createPost} />
       </MyModal>
       <PostFilter filter={filter} setFilter={setFilter} />
+      <MySelect
+        value={limit}
+        onChange={(value) => setLimit(value)}
+        defaultValue="Кол-во ел-в на странице"
+        options={ELEMENTS_PER_PAGE}
+      />
       {postError && <h1 style={{ textAlign: "center", color: "red" }}>{postError}</h1>}
       {isPostsLoading && <Loader size="large" />}
       <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Посты" />
